@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example </title>
+    <link rel="stylesheet" href="/static/styles/main.css"/>
+</head>
+<body>
+Items with images
+<ul th:each="item : ${items}">
+    <li>
+        <p th:text="${item.localizedName}"></p>
+        <img th:src="${item.imageUrl}"/>
+    </li>
+</ul>
+</body>
+</html>

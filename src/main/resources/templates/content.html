@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example </title>
+    <link rel="stylesheet" href="/static/styles/main.css"/>
+</head>
+<body>
+Content you will see only logged in.
+<tr th:each="match : ${history.matches}">
+    <td th:text="${match.matchId}">1</td>
+</tr>
+</body>
+</html>
