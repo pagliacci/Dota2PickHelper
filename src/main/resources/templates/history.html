@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example </title>
+    <link rel="stylesheet" href="/static/styles/main.css"/>
+</head>
+<body>
+<ul th:each="match : ${history.matches}">
+    <li>
+        <a th:href="@{/details(matchId=${match.matchId})}">
+            <p th:text="${match.matchId}"></p>
+        </a>
+    </li>
+</ul>
+</body>
+</html>

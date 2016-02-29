@@ -1,10 +1,7 @@
 package com.dota2apiclient.Controllers;
 
 import com.dota2apiclient.ApiClient.ApiClient;
-import com.dota2apiclient.ApiClient.Models.Heroes;
-import com.dota2apiclient.ApiClient.Models.Items;
-import com.dota2apiclient.ApiClient.Models.MatchHistory;
-import com.dota2apiclient.ApiClient.Models.Profile;
+import com.dota2apiclient.ApiClient.Models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +32,16 @@ public class ContentController {
     @RequestMapping("/history")
     public ModelAndView MatchHistory(@RequestParam("id") long id) {
         MatchHistory history = apiClient.GetMatchHistory(id);//76561197996308418
-        ModelAndView modelAndView = new ModelAndView("content");
+        ModelAndView modelAndView = new ModelAndView("history");
         modelAndView.addObject("history", history);
+        return modelAndView;
+    }
+
+    @RequestMapping("/details")
+    public ModelAndView MatchDetails(@RequestParam("matchId") String matchId) {
+        MatchDetails details = apiClient.GetMatchDetails(matchId);
+        ModelAndView modelAndView = new ModelAndView("details");
+        modelAndView.addObject("details", details);
         return modelAndView;
     }
 

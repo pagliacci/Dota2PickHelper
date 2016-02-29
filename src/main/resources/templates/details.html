@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example </title>
+    <link rel="stylesheet" href="/static/styles/main.css"/>
+</head>
+<body>
+<p th:text="${details.matchId}"></p>
+<table>
+    <tr>
+        <th>Player Id</th>
+        <th>Kills</th>
+        <th>Deaths</th>
+        <th>Assists</th>
+    </tr>
+    <tr th:each="player : ${details.players}">
+        <td th:text="${player.accountId}"></td>
+        <td th:text="${player.kills}"></td>
+        <td th:text="${player.deaths}"></td>
+        <td th:text="${player.assists}"></td>
+    </tr>
+</table>
+</body>
+</html>
