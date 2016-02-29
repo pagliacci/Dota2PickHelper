@@ -48,6 +48,7 @@ public class ApiClient {
         return result.getResult();
     }
 
+    @Cacheable("heroes")
     public Heroes GetHeroes() {
         RestTemplate template = new RestTemplate();
         Result<Heroes> result = template.exchange(
@@ -59,8 +60,10 @@ public class ApiClient {
         return result.getResult();
     }
 
+    @Cacheable("items")
     public Items GetItems() {
         RestTemplate template = new RestTemplate();
+
         Result<Items> result = template.exchange(
                 getUrl(ApiConstants.Methods.GetGameItems, new String[]{"language={language}"}),
                 HttpMethod.GET,
@@ -116,11 +119,11 @@ public class ApiClient {
         //http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=75B98988B4CA0644AB86E2BFBAFA9DB7&steamids=76561197996308418
 
         String ids = Long.toString(steamIds.get(0));
-        for (long id : steamIds) {
-            ids += "," + id;
+        for (int i = 1; i < steamIds.size(); i++) {
+            ids += "," + steamIds.get(i);
         }
 
-        Response<Profiles> result = template.exchange(
+        Response<Profiles> response = template.exchange(
                 getUrl(ApiConstants.Methods.GetPlayerSummaries, new String[]{"steamids={steamids}"}),
                 HttpMethod.GET,
                 null,
@@ -128,7 +131,15 @@ public class ApiClient {
                 ids
         ).getBody();
 
-        return result.getResponse().getProfiles();
+        List<Profile> result = new ArrayList<>();
+
+        if(response.getResponse().getProfiles().size() == 0) {
+            result.add(new Profile());
+        } else {
+            result = response.getResponse().getProfiles();
+        }
+
+        return result;
     }
 
     private long ResolveVanityName(String vanityName) {

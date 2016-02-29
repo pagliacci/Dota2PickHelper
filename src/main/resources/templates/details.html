@@ -5,19 +5,25 @@
     <link rel="stylesheet" href="/static/styles/main.css"/>
 </head>
 <body>
-<p th:text="${details.matchId}"></p>
 <table>
     <tr>
-        <th>Player Id</th>
+        <th></th>
+        <th>Player name</th>
         <th>Kills</th>
         <th>Deaths</th>
         <th>Assists</th>
+        <!--<th>Items</th>-->
     </tr>
     <tr th:each="player : ${details.players}">
-        <td th:text="${player.accountId}"></td>
+        <td><img th:src="${player.hero.imageSmall}" /></td>
+        <td th:text="${player.personName}"></td>
         <td th:text="${player.kills}"></td>
         <td th:text="${player.deaths}"></td>
         <td th:text="${player.assists}"></td>
+        <!--<td><ul th:each="item : ${player.items}">-->
+                <!--<li><img th:src="${item.imageUrl}"/></li>-->
+            <!--</ul>-->
+        <!--</td>-->
     </tr>
 </table>
 </body>

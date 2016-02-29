@@ -37,6 +37,9 @@ public class Player {
     @JsonProperty("player_slot")
     private int playerSlot;
 
+    @JsonProperty("hero_id")
+    private int heroId;
+
     @JsonProperty("item_0")
     private int item0;
 
@@ -109,6 +112,14 @@ public class Player {
 
     public void setPlayerSlot(int playerSlot) {
         this.playerSlot = playerSlot;
+    }
+
+    public int getHeroId() {
+        return heroId;
+    }
+
+    public void setHeroId(int heroId) {
+        this.heroId = heroId;
     }
 
     public int getItem0() {

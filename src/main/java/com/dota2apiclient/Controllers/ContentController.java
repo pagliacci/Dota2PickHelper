@@ -2,6 +2,8 @@ package com.dota2apiclient.Controllers;
 
 import com.dota2apiclient.ApiClient.ApiClient;
 import com.dota2apiclient.ApiClient.Models.*;
+import com.dota2apiclient.Controllers.Models.MatchDetailsViewModel;
+import com.dota2apiclient.Controllers.Models.PlayerViewModel;
 import com.dota2apiclient.Services.HeroesService;
 import com.dota2apiclient.Services.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -41,8 +44,34 @@ public class ContentController {
     @RequestMapping("/details")
     public ModelAndView MatchDetails(@RequestParam("matchId") String matchId) {
         MatchDetails details = apiClient.GetMatchDetails(matchId);
+        MatchDetailsViewModel viewModel = new MatchDetailsViewModel();
+        List<PlayerViewModel> playerViewModels = new ArrayList<>();
+        for(Player player : details.getPlayers()) {
+            Profile profile = apiClient.GetProfileData(Collections.singletonList(player.getAccountId() + 76561197960265728L)).get(0);
+            PlayerViewModel playerViewModel = new PlayerViewModel();
+            playerViewModel.setPersonName(profile.getPersonName());
+            playerViewModel.setAvatar(profile.getAvatar());
+            playerViewModel.setKills(player.getKills());
+            playerViewModel.setDeaths(player.getDeaths());
+            playerViewModel.setAssists(player.getAssists());
+
+            playerViewModel.setHero(heroesService.get(player.getHeroId()));
+
+            List<Item> playerItems = new ArrayList<>();
+            playerItems.add(itemsService.get(player.getItem0()));
+            playerItems.add(itemsService.get(player.getItem1()));
+            playerItems.add(itemsService.get(player.getItem2()));
+            playerItems.add(itemsService.get(player.getItem3()));
+            playerItems.add(itemsService.get(player.getItem4()));
+            playerItems.add(itemsService.get(player.getItem5()));
+
+            playerViewModel.setItems(playerItems);
+
+            playerViewModels.add(playerViewModel);
+        }
+        viewModel.setPlayers(playerViewModels);
         ModelAndView modelAndView = new ModelAndView("details");
-        modelAndView.addObject("details", details);
+        modelAndView.addObject("details", viewModel);
         return modelAndView;
     }
 
