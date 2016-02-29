@@ -3,9 +3,6 @@ package com.dota2apiclient.Models;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by Admin on 21.02.2016.
- */
 @Component
 @ConfigurationProperties(prefix="apiSettings")
 public class ApiSettings {
@@ -13,6 +10,9 @@ public class ApiSettings {
 
     private String key;
 
+    private String steamCommunityUrl;
+
+    //region Getters / Setters
     public String getBaseUrl() {
         return baseUrl;
     }
@@ -28,4 +28,13 @@ public class ApiSettings {
     public void setKey(String key) {
         this.key = key;
     }
+
+    public String getSteamCommunityUrl() {
+        return steamCommunityUrl;
+    }
+
+    public void setSteamCommunityUrl(String usernameSearchBaseUrl) {
+        this.steamCommunityUrl = usernameSearchBaseUrl;
+    }
+    //endregion
 }

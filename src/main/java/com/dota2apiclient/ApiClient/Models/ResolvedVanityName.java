@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Result<T> {
-    @JsonProperty("result")
-    private T result;
+public class ResolvedVanityName {
+    @JsonProperty("steamid")
+    private long id;
 
-    public T getResult() {
-        return result;
+    public long getId() {
+        return id;
     }
 
-    public void setResult(T result) {
-        this.result = result;
+    public void setId(long id) {
+        this.id = id;
     }
 }

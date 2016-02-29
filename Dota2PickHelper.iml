@@ -14,10 +14,10 @@
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
-        <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/java/com/example/Configurations/MvcConfiguration.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/com/example/Configurations/SecurityConfiguration.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/com/example/WebAppTryApplication.java</file>
+        <fileset id="fileset" name="Spring Application Context" removed="false" />
+        <fileset id="fileset2" name="Spring Application Context (2)" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/com/dota2apiclient/Configurations/SecurityConfiguration.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/dota2apiclient/WebAppTryApplication.java</file>
         </fileset>
       </configuration>
     </facet>

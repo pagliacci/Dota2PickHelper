@@ -21,6 +21,11 @@ public class ApiConstants {
         public static String GetLiveLeagueGames = "/IDOTA2Match_570/GetLiveLeagueGames/v0001/    ";
         public static String GetMatchHistoryBySequenceNum = "/IDOTA2Match_570/GetMatchHistoryBySequenceNum/v0001/";
         public static String GetTeamInfoByTeamID = "/IDOTA2Match_570/GetTeamInfoByTeamID/v001/";
+        public static String ResolveVanityUrl = "/ISteamUser/ResolveVanityURL/v0001/";
+
+        public static String GetIdsByUsername = "/search/users/#filter=users&";//&text=nick
+        public static String GetIdsByUsernameAjax = "/search/SearchCommunityAjax/";
+        public static String GetProfile = "/profiles/";//76561197999421200/?xml=1";
     }
 
     public static class Versions {

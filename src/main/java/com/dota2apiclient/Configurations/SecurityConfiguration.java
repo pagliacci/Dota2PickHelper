@@ -20,6 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/heroes").permitAll()
                 .antMatchers("/", "/history").permitAll()
                 .antMatchers("/", "/items").permitAll()
+                .antMatchers("/", "/profiles").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
