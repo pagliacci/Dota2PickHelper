@@ -2,12 +2,15 @@ package com.dota2apiclient.Controllers;
 
 import com.dota2apiclient.ApiClient.ApiClient;
 import com.dota2apiclient.ApiClient.Models.*;
+import com.dota2apiclient.Services.HeroesService;
+import com.dota2apiclient.Services.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -15,13 +18,11 @@ public class ContentController {
     @Autowired
     ApiClient apiClient;
 
+    @Autowired
+    HeroesService heroesService;
 
-//    @RequestMapping(value = "message", method = RequestMethod.GET)
-//    public ModelAndView messages() {
-//        ModelAndView mav = new ModelAndView("message/list");
-//        mav.addObject("messages", messageRepository.findAll());
-//        return mav;
-//    }
+    @Autowired
+    ItemsService itemsService;
 
     @RequestMapping("/afterLogin")
     public String Content() {
@@ -31,7 +32,7 @@ public class ContentController {
 
     @RequestMapping("/history")
     public ModelAndView MatchHistory(@RequestParam("id") long id) {
-        MatchHistory history = apiClient.GetMatchHistory(id);//76561197996308418
+        MatchHistory history = apiClient.GetMatchHistory(id);
         ModelAndView modelAndView = new ModelAndView("history");
         modelAndView.addObject("history", history);
         return modelAndView;
@@ -46,18 +47,28 @@ public class ContentController {
     }
 
     @RequestMapping("/heroes")
-    public ModelAndView Heroes() {
-        Heroes heroes = apiClient.GetHeroes();
+    public ModelAndView Heroes(@RequestParam(value = "id", required = false) Long id) {
+        List<Hero> heroes = new ArrayList<>();
+        if(id != null) {
+            heroes.add(heroesService.get(id));
+        } else {
+            heroes = heroesService.getAll();
+        }
         ModelAndView modelAndView = new ModelAndView("heroes");
-        modelAndView.addObject("heroes", heroes.getHeroes());
+        modelAndView.addObject("heroes", heroes);
         return modelAndView;
     }
 
     @RequestMapping("/items")
-    public ModelAndView Items() {
-        Items items = apiClient.GetItems();
+    public ModelAndView Items(@RequestParam(value = "id", required = false) Long id) {
+        List<Item> items = new ArrayList<>();
+        if(id != null) {
+            items.add(itemsService.get(id));
+        } else {
+            items = itemsService.getAll();
+        }
         ModelAndView modelAndView = new ModelAndView("items");
-        modelAndView.addObject("items", items.getItems());
+        modelAndView.addObject("items", items);
         return modelAndView;
     }
 
