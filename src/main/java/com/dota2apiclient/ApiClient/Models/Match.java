@@ -8,7 +8,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Match {
     @JsonProperty("match_id")
-    private String matchId;
+    private long matchId;
 
     @JsonProperty("match_seq_num")
     private String matchSequenceNumber;
@@ -28,11 +28,11 @@ public class Match {
     private List<Player> players;
 
     //region Getters / Setters
-    public String getMatchId() {
+    public long getMatchId() {
         return matchId;
     }
 
-    public void setMatchId(String matchId) {
+    public void setMatchId(long matchId) {
         this.matchId = matchId;
     }
 

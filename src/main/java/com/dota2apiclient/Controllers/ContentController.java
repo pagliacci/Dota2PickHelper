@@ -6,6 +6,7 @@ import com.dota2apiclient.Controllers.Models.MatchDetailsViewModel;
 import com.dota2apiclient.Controllers.Models.PlayerViewModel;
 import com.dota2apiclient.Services.HeroesService;
 import com.dota2apiclient.Services.ItemsService;
+import com.dota2apiclient.Services.MatchDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ContentController {
@@ -23,14 +25,24 @@ public class ContentController {
 
     @Autowired
     HeroesService heroesService;
-
     @Autowired
     ItemsService itemsService;
+    @Autowired
+    MatchDetailsService matchDetailsService;
 
     @RequestMapping("/afterLogin")
     public String Content() {
         MatchHistory history = apiClient.GetMatchHistory(76561197996308418L);
         return "content";
+    }
+
+    @RequestMapping("/playerstats")
+    public ModelAndView PlayerStats(@RequestParam("id") long id) {
+        MatchHistory history = apiClient.GetMatchHistory(id);
+        List<MatchDetails> allMatchesDetails = history.getMatches().stream().map(match -> apiClient.GetMatchDetails(match.getMatchId())).collect(Collectors.toList());
+        ModelAndView modelAndView = new ModelAndView("playerstats");
+        modelAndView.addObject("details", allMatchesDetails);
+        return modelAndView;
     }
 
     @RequestMapping("/history")
@@ -42,8 +54,8 @@ public class ContentController {
     }
 
     @RequestMapping("/details")
-    public ModelAndView MatchDetails(@RequestParam("matchId") String matchId) {
-        MatchDetails details = apiClient.GetMatchDetails(matchId);
+    public ModelAndView MatchDetails(@RequestParam("matchId") long matchId) {
+        MatchDetails details = matchDetailsService.get(matchId);
         MatchDetailsViewModel viewModel = new MatchDetailsViewModel();
         List<PlayerViewModel> playerViewModels = new ArrayList<>();
         for(Player player : details.getPlayers()) {

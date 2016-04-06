@@ -1,66 +1,51 @@
-package com.dota2apiclient.ApiClient.Models;
+package com.dota2apiclient.Database.Models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 
-import java.util.List;
+@Entity(name = "MatchDetails")
+public class MatchDetailsDAO implements Serializable {
+    @Id
+    private String matchId;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class MatchDetails {
-    @JsonProperty("radiant_win")
     private boolean radiantWin;
 
     private int duration;
 
-    @JsonProperty("start_time")
     private long startTime;
 
-    @JsonProperty("match_id")
-    private long matchId;
-
-    @JsonProperty("match_seq_num")
     private String matchSequenceNumber;
 
-    @JsonProperty("tower_status_radiant")
     private int towerStatusRadiant;
 
-    @JsonProperty("tower_status_dire")
     private int towerStatusDire;
 
-    @JsonProperty("barracks_status_radiant")
     private int barracksStatusRadiant;
 
-    @JsonProperty("barracks_status_dire")
     private int barracksStatusDire;
 
     private int cluster;
 
-    @JsonProperty("first_blood_time")
     private long firstBloodTime;
 
-    @JsonProperty("lobby_type")
     private int lobbyType;
 
-    @JsonProperty("human_players")
     private int humamPlayers;
 
-    @JsonProperty("leagueid")
     private int leagueId;
 
-    @JsonProperty("positive_votes")
     private int positiveVotes;
 
-    @JsonProperty("negative_votes")
     private int negativeVotes;
 
-    @JsonProperty("game_mode")
     private int gameMode;
 
     private int flags;
 
     private int engine;
 
-    private List<Player> players;
+    //private List<Player> players;
 
     //region Getters / Setters
     public boolean isRadiantWin() {
@@ -87,11 +72,11 @@ public class MatchDetails {
         this.startTime = startTime;
     }
 
-    public long getMatchId() {
+    public String getMatchId() {
         return matchId;
     }
 
-    public void setMatchId(long matchId) {
+    public void setMatchId(String matchId) {
         this.matchId = matchId;
     }
 
@@ -215,12 +200,12 @@ public class MatchDetails {
         this.engine = engine;
     }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
+//    public List<Player> getPlayers() {
+//        return players;
+//    }
 
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
+//    public void setPlayers(List<Player> players) {
+//        this.players = players;
+//    }
     //endregion
 }

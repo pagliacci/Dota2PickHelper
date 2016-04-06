@@ -37,7 +37,7 @@ public class ApiClient {
         return result.getResult();
     }
 
-    public MatchDetails GetMatchDetails(String matchId) {
+    public MatchDetails GetMatchDetails(long matchId) {
         RestTemplate template = new RestTemplate();
         Result<MatchDetails> result = template.exchange(
                 getUrl(ApiConstants.Methods.GetMatchDetails, new String[] {"match_id={match_id}"}),
